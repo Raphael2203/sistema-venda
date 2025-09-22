@@ -1,0 +1,74 @@
+services:
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 147369
+      MYSQL_DATABASE: ecommerce-api
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+
+  sales-service:
+    build: 
+      context: ../
+      dockerfile: src/Services/SalesService/Dockerfile
+    container_name: sales-service
+    depends_on:
+      - mysql-db
+      - rabbitmq
+    environment:
+      - DB_HOST=mysql-db
+      - DB_PORT=3306
+      - DB_NAME=ecommerce-api
+      - DB_PASSWORD=147369
+      - RABBITMQ_HOST=rabbitmq
+      - JWT_SECRET=ecommerce-api-sales
+    ports:
+      - "5001:5000"
+
+  stock-service:
+    build: 
+      context: ../
+      dockerfile: src/Services/StockService/Dockerfile
+    container_name: stock-service
+    depends_on:
+      - mysql-db
+      - rabbitmq
+    environment:
+      - DB_HOST=mysql-db
+      - DB_PORT=3306
+      - DB_NAME=ecommerce-api
+      - DB_PASSWORD=147369
+      - RABBITMQ_HOST=rabbitmq
+      - JWT_SECRET=ecommerce-api-stock
+    ports:
+      - "5002:5000"
+
+  api-gateway:
+    build: 
+      context: ../
+      dockerfile: src/ApiGateway/Dockerfile
+    container_name: api-gateway
+    depends_on:
+      - sales-service
+      - stock-service
+    environment:
+      - JWT_SECRET=ecommerce-api-gateway
+    ports:
+      - "8000:8000"
+
+volumes:
+  mysql_data:

@@ -1,0 +1,9 @@
+C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\SalesService\obj\Debug\net9.0\SalesService.csproj.AssemblyReference.cache
+C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\SalesService\obj\Debug\net9.0\rpswa.dswa.cache.json
+C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\SalesService\obj\Debug\net9.0\SalesService.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\SalesService\obj\Debug\net9.0\SalesService.AssemblyInfoInputs.cache
+C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\SalesService\obj\Debug\net9.0\SalesService.AssemblyInfo.cs
+C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\SalesService\obj\Debug\net9.0\SalesService.csproj.CoreCompileInputs.cache
+C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\SalesService\obj\Debug\net9.0\SalesService.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\SalesService\obj\Debug\net9.0\SalesService.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\SalesService\obj\Debug\net9.0\SalesService.sourcelink.json

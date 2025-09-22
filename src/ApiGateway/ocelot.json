@@ -1,0 +1,31 @@
+{
+    "Routes": [
+        {
+            "DownstreamPathTemplate": "/api/orders",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "sales-service",
+                    "Port": 5000
+                }
+            ],
+            "UpstreamPathTemplate": "/sales/orders",
+            "UpstreamHttpMethod": ["POST", "GET" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/products",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "stock-service",
+                    "Port": 5000
+                }
+            ],
+            "UpstreamPathTemplate": "/stock/products",
+            "UpstreamHttpMethod": ["POST", "GET" ]
+        }
+    ],
+    "GlobalConfiguration": {
+        "BaseUrl": "https://localhost:8080"
+    }
+}
