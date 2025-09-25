@@ -137,3 +137,17 @@ C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\
 C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\StockService\obj\Debug\net9.0\StockService.pdb
 C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\StockService\obj\Debug\net9.0\StockService.genruntimeconfig.cache
 C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\StockService\obj\Debug\net9.0\ref\StockService.dll
+C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\StockService\bin\Debug\net9.0\publish\web.config
+C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\StockService\bin\Debug\net9.0\publish\appsettings.Development.json
+C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\StockService\bin\Debug\net9.0\publish\appsettings.json
+C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\StockService\bin\Debug\net9.0\publish\StockService.deps.json
+C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\StockService\bin\Debug\net9.0\publish\StockService.runtimeconfig.json
+C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\StockService\bin\Debug\net9.0\publish\StockService.staticwebassets.endpoints.json
+C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\StockService\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\StockService\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\StockService\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\StockService\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\StockService\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\StockService\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\StockService\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\perer\Documents\HISTÓRICO\Projetos\csharp\sistema-vendas\src\Services\StockService\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll

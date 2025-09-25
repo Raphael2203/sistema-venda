@@ -7,8 +7,12 @@ using SalesService.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING")
-    ?? builder.Configuration.GetConnectionString("Mysql");
+builder.Services.AddControllers();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
 
 builder.Services.AddDbContext<SalesDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
@@ -36,8 +40,8 @@ builder.Services.AddAuthentication(options =>
 var rabbitConfig = new
 {
     Host = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? builder.Configuration["RabbitMQ:Host"],
-    Username = Environment.GetEnvironmentVariable("RABBITMQ_USERNAME") ?? builder.Configuration["RabbitMQ:Username"],
-    Password = Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD") ?? builder.Configuration["RabbitMQ:Password"],
+    Username = Environment.GetEnvironmentVariable("RABBITMQ_USER") ?? builder.Configuration["RabbitMQ:Username"],
+    Password = Environment.GetEnvironmentVariable("RABBITMQ_PASS") ?? builder.Configuration["RabbitMQ:Password"],
     Queue = Environment.GetEnvironmentVariable("RABBITMQ_QUEUE") ?? builder.Configuration["RabbitMQ:Queue"]
 };
 builder.Services.AddMassTransit(x =>
@@ -65,6 +69,15 @@ var app = builder.Build();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseSwagger();
+app.UseSwaggerUI();
+
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<SalesDbContext>();
+    dbContext.Database.Migrate();
+}
 
 app.Run();

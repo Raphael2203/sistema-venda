@@ -7,10 +7,15 @@ using StockService.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
+
 builder.Services.AddDbContext<StockDbContext>(options =>
-    options.UseMySql(
-        builder.Configuration.GetConnectionString("Mysql"),
-        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("Mysql"))));
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 var jwtSecret = Environment.GetEnvironmentVariable("JWT_SECRET") ?? "fallback-secret";
 var key = Encoding.ASCII.GetBytes(jwtSecret);
@@ -35,8 +40,8 @@ builder.Services.AddAuthentication(options =>
 var rabbitConfig = new
 {
     Host = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? builder.Configuration["RabbitMQ:Host"],
-    Username = Environment.GetEnvironmentVariable("RABBITMQ_USERNAME") ?? builder.Configuration["RabbitMQ:Username"],
-    Password = Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD") ?? builder.Configuration["RabbitMQ:Password"],
+    Username = Environment.GetEnvironmentVariable("RABBITMQ_USER") ?? builder.Configuration["RabbitMQ:Username"],
+    Password = Environment.GetEnvironmentVariable("RABBITMQ_PASS") ?? builder.Configuration["RabbitMQ:Password"],
     Queue = Environment.GetEnvironmentVariable("RABBITMQ_QUEUE") ?? builder.Configuration["RabbitMQ:Queue"]
 };
 builder.Services.AddMassTransit(x =>
@@ -64,6 +69,15 @@ var app = builder.Build();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseSwagger();
+app.UseSwaggerUI();
+
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<StockDbContext>();
+    dbContext.Database.Migrate();
+}
 
 app.Run();

@@ -1,11 +1,26 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 
-namespace StockService.Data
+namespace StockService.Data;
+
+public class StockDbContext : DbContext
 {
-    public class StockDbContext : DbContext
-    {
-        public StockDbContext(DbContextOptions<StockDbContext> options) : base(options) { }
+    public StockDbContext(DbContextOptions<StockDbContext> options) : base(options) { }
 
-        public DbSet<Product> Products { get; set; }
+    public DbSet<Product> Products { get; set; } = null!;
+}
+public class StockDbContextFactory : IDesignTimeDbContextFactory<StockDbContext>
+{
+    public StockDbContext CreateDbContext(string[] args)
+    {
+        var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
+
+        if (string.IsNullOrEmpty(connectionString))
+            throw new InvalidOperationException("DB_CONNECTION_STRING não está definida.");
+
+        var optionsBuilder = new DbContextOptionsBuilder<StockDbContext>();
+        optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 26)));
+
+        return new StockDbContext(optionsBuilder.Options);
     }
 }

@@ -1,8 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
 
-COPY ../ ../EcommerceMicroservices.sln ./
-COPY src ./src
+COPY . .
 
 RUN dotnet restore
 RUN dotnet publish "src/Services/StockService/StockService.csproj" -c Release -o /app/publish

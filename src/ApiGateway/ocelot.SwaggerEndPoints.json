@@ -1,0 +1,16 @@
+{
+    "sales-service":[
+        {
+            "Name": "Sales Service",
+            "Version": "v1",
+            "Url": "http://sales-service:5000/swagger/v1/swagger.json"
+        }
+    ],
+    "stock-service":[
+        {
+            "Name": "Stock Service",
+            "Version": "v1",
+            "Url": "http://stock-service:5000/swagger/v1/swagger.json"
+        }
+    ]
+}

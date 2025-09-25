@@ -5,11 +5,16 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 147369
-      MYSQL_DATABASE: ecommerce-api
+      MYSQL_DATABASE: ecommerce_api
     ports:
       - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p147369"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -27,13 +32,12 @@ services:
       dockerfile: src/Services/SalesService/Dockerfile
     container_name: sales-service
     depends_on:
-      - mysql-db
-      - rabbitmq
+      mysql-db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
     environment:
-      - DB_HOST=mysql-db
-      - DB_PORT=3306
-      - DB_NAME=ecommerce-api
-      - DB_PASSWORD=147369
+      - DB_CONNECTION_STRING=server=mysql-db;port=3306;database=ecommerce_api;user=root;password=147369
       - RABBITMQ_HOST=rabbitmq
       - JWT_SECRET=ecommerce-api-sales
     ports:
@@ -45,13 +49,12 @@ services:
       dockerfile: src/Services/StockService/Dockerfile
     container_name: stock-service
     depends_on:
-      - mysql-db
-      - rabbitmq
+      mysql-db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
     environment:
-      - DB_HOST=mysql-db
-      - DB_PORT=3306
-      - DB_NAME=ecommerce-api
-      - DB_PASSWORD=147369
+      - DB_CONNECTION_STRING=server=mysql-db;port=3306;database=ecommerce_api;user=root;password=147369
       - RABBITMQ_HOST=rabbitmq
       - JWT_SECRET=ecommerce-api-stock
     ports:
@@ -68,7 +71,7 @@ services:
     environment:
       - JWT_SECRET=ecommerce-api-gateway
     ports:
-      - "8000:8000"
+      - "8000:8080"
 
 volumes:
   mysql_data:
