@@ -8,14 +8,17 @@ using SalesService.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
-
 builder.Services.AddDbContext<SalesDbContext>(options =>
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
+    mysqlOptions => mysqlOptions.EnableRetryOnFailure(
+        maxRetryCount: 10,
+        maxRetryDelay: TimeSpan.FromSeconds(5),
+        errorNumbersToAdd: null
+    )));
 
 var jwtSecret = Environment.GetEnvironmentVariable("JWT_SECRET") ?? "fallback-secret";
 var key = Encoding.ASCII.GetBytes(jwtSecret);
@@ -39,10 +42,10 @@ builder.Services.AddAuthentication(options =>
 
 var rabbitConfig = new
 {
-    Host = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? builder.Configuration["RabbitMQ:Host"],
-    Username = Environment.GetEnvironmentVariable("RABBITMQ_USER") ?? builder.Configuration["RabbitMQ:Username"],
-    Password = Environment.GetEnvironmentVariable("RABBITMQ_PASS") ?? builder.Configuration["RabbitMQ:Password"],
-    Queue = Environment.GetEnvironmentVariable("RABBITMQ_QUEUE") ?? builder.Configuration["RabbitMQ:Queue"]
+    Host = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "localhost",
+    Username = Environment.GetEnvironmentVariable("RABBITMQ_USER") ?? "guest",
+    Password = Environment.GetEnvironmentVariable("RABBITMQ_PASS") ?? "guest",
+    Queue = Environment.GetEnvironmentVariable("RABBITMQ_QUEUE") ?? "order-created"
 };
 builder.Services.AddMassTransit(x =>
 {
@@ -50,34 +53,44 @@ builder.Services.AddMassTransit(x =>
     {
         cfg.Host(rabbitConfig.Host, "/", h =>
         {
-            h.Username(rabbitConfig.Username!);
-            h.Password(rabbitConfig.Password!);
+            h.Username(rabbitConfig.Username);
+            h.Password(rabbitConfig.Password);
         });
         cfg.ReceiveEndpoint(rabbitConfig.Queue!, e =>
         {
             e.Consumer<OrderCreatedConsumer>(context);
         });
-
         cfg.ConfigureEndpoints(context);
     });
 });
 
-builder.Services.AddAuthorization();
-
 var app = builder.Build();
-
-app.UseAuthentication();
-app.UseAuthorization();
 
 app.UseSwagger();
 app.UseSwaggerUI();
-
+app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<SalesDbContext>();
-    dbContext.Database.Migrate();
+    var retries = 5;
+    while (retries > 0)
+    {
+        try
+        {
+            dbContext.Database.Migrate();
+            break;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Migration Falhou: {ex.Message}, tentando novamente...");
+            Thread.Sleep(5000);
+            retries--;
+        }
+    }
 }
 
 app.Run();

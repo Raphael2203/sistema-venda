@@ -2,7 +2,6 @@ services:
   mysql-db:
     image: mysql:8.0
     container_name: mysql-db
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 147369
       MYSQL_DATABASE: ecommerce_api
@@ -11,10 +10,12 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p147369"]
+      #test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p147369"]
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 10
+    networks:
+      - ecommerce-network
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -22,56 +23,69 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-    environment:
-      RABBITMQ_DEFAULT_USER: admin
-      RABBITMQ_DEFAULT_PASS: admin
+    networks:
+      - ecommerce-network
 
   sales-service:
-    build: 
+    build:
       context: ../
       dockerfile: src/Services/SalesService/Dockerfile
     container_name: sales-service
+    networks:
+      - ecommerce-network
     depends_on:
       mysql-db:
         condition: service_healthy
       rabbitmq:
         condition: service_started
     environment:
-      - DB_CONNECTION_STRING=server=mysql-db;port=3306;database=ecommerce_api;user=root;password=147369
-      - RABBITMQ_HOST=rabbitmq
-      - JWT_SECRET=ecommerce-api-sales
+      DB_CONNECTION_STRING: "server=mysql-db;port=3306;database=ecommerce_api;user=root;password=147369"
+      RABBITMQ_HOST: rabbitmq
+      JWT_SECRET: ecommerce-api-sales
     ports:
-      - "5001:5000"
-
+      - "5001:5500"
+    command: ["/wait-for-it.sh", "mysql-db", "3306", "--", "dotnet", "SalesService.dll"]
+    
   stock-service:
-    build: 
+    build:
       context: ../
       dockerfile: src/Services/StockService/Dockerfile
     container_name: stock-service
+    networks:
+      - ecommerce-network
     depends_on:
       mysql-db:
         condition: service_healthy
       rabbitmq:
         condition: service_started
     environment:
-      - DB_CONNECTION_STRING=server=mysql-db;port=3306;database=ecommerce_api;user=root;password=147369
-      - RABBITMQ_HOST=rabbitmq
-      - JWT_SECRET=ecommerce-api-stock
+      DB_CONNECTION_STRING: "server=mysql-db;port=3306;database=ecommerce_api;user=root;password=147369"
+      RABBITMQ_HOST: rabbitmq
+      JWT_SECRET: ecommerce-api-stock
     ports:
-      - "5002:5000"
-
+      - "5002:5500"
+    command: ["/wait-for-it.sh", "mysql-db", "3306", "--", "dotnet", "StockService.dll"]
+    
   api-gateway:
-    build: 
+    build:
       context: ../
       dockerfile: src/ApiGateway/Dockerfile
     container_name: api-gateway
+    networks:
+      - ecommerce-network
     depends_on:
       - sales-service
       - stock-service
     environment:
-      - JWT_SECRET=ecommerce-api-gateway
+      JWT_SECRET: ecommerce-api-gateway
     ports:
-      - "8000:8080"
+      - "8000:80"
+    command: ["./wait-for-it.sh", "sales-service:5500", "--", "./wait-for-it.sh", "stock-service:5500", "--", "dotnet", "ApiGateway.dll"]
 
 volumes:
   mysql_data:
+
+networks:
+  ecommerce-network:
+    name: ecommerce-network
+    driver: bridge

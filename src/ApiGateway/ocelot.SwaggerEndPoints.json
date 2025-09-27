@@ -1,16 +1,24 @@
 {
-    "sales-service":[
+  "SwaggerEndPoints": [
+    {
+      "Key": "sales-service",
+      "Config": [
         {
-            "Name": "Sales Service",
-            "Version": "v1",
-            "Url": "http://sales-service:5000/swagger/v1/swagger.json"
+          "Name": "Sales Service",
+          "Version": "v1",
+          "Url": "http://sales-service:5500/swagger/v1/swagger.json"
         }
-    ],
-    "stock-service":[
+      ]
+    },
+    {
+      "Key": "stock-service",
+      "Config": [
         {
-            "Name": "Stock Service",
-            "Version": "v1",
-            "Url": "http://stock-service:5000/swagger/v1/swagger.json"
+          "Name": "Stock Service",
+          "Version": "v1",
+          "Url": "http://stock-service:5500/swagger/v1/swagger.json"
         }
-    ]
+      ]
+    }
+  ]
 }

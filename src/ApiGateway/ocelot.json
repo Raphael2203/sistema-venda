@@ -6,7 +6,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "sales-service",
-                    "Port": 5000
+                    "Port": 5500
                 }
             ],
             "UpstreamPathTemplate": "/sales/orders",
@@ -18,7 +18,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "stock-service",
-                    "Port": 5000
+                    "Port": 5500
                 }
             ],
             "UpstreamPathTemplate": "/stock/products",
