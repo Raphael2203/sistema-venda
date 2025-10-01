@@ -6,7 +6,7 @@
         {
           "Name": "Sales Service",
           "Version": "v1",
-          "Url": "http://sales-service:5500/swagger/v1/swagger.json"
+          "Url": "http://localhost:5500/swagger/v1/swagger.json"
         }
       ]
     },
@@ -16,7 +16,7 @@
         {
           "Name": "Stock Service",
           "Version": "v1",
-          "Url": "http://stock-service:5500/swagger/v1/swagger.json"
+          "Url": "http://localhost:5502/swagger/v1/swagger.json"
         }
       ]
     }

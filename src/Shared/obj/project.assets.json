@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-vendas\\src\\Shared\\Shared.csproj",
+      "projectUniqueName": "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-venda\\src\\Shared\\Shared.csproj",
       "projectName": "Shared",
-      "projectPath": "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-vendas\\src\\Shared\\Shared.csproj",
+      "projectPath": "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-venda\\src\\Shared\\Shared.csproj",
       "packagesPath": "C:\\Users\\perer\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-vendas\\src\\Shared\\obj\\",
+      "outputPath": "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-venda\\src\\Shared\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

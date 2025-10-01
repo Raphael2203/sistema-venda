@@ -14,9 +14,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="MMLib.SwaggerForOcelot" Version="6.0.0" />
+    <PackageReference Include="MMLib.SwaggerForOcelot" Version="8.0.0" />
     <PackageReference Include="MySql.EntityFrameworkCore" Version="7.0.0" />
-    <PackageReference Include="Ocelot" Version="18.0.0" />
+    <PackageReference Include="Ocelot" Version="19.0.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.0" />
 </ItemGroup>
 

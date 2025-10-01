@@ -1,28 +1,28 @@
 {
     "Routes": [
         {
-            "DownstreamPathTemplate": "/api/orders",
+            "DownstreamPathTemplate": "/api/sales/{everything}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "sales-service",
+                    "Host": "localhost",
                     "Port": 5500
                 }
             ],
-            "UpstreamPathTemplate": "/sales/orders",
-            "UpstreamHttpMethod": ["POST", "GET" ]
+            "UpstreamPathTemplate": "/sales",
+            "UpstreamHttpMethod": ["GET", "POST" ]
         },
         {
-            "DownstreamPathTemplate": "/api/products",
+            "DownstreamPathTemplate": "/api/stock/{everything}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "stock-service",
-                    "Port": 5500
+                    "Host": "localhost",
+                    "Port": 5502
                 }
             ],
-            "UpstreamPathTemplate": "/stock/products",
-            "UpstreamHttpMethod": ["POST", "GET" ]
+            "UpstreamPathTemplate": "/stock",
+            "UpstreamHttpMethod": ["GET", "POST" ]
         }
     ],
     "GlobalConfiguration": {

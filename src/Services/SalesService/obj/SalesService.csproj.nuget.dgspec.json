@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-vendas\\src\\Services\\SalesService\\SalesService.csproj": {}
+    "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-venda\\src\\Services\\SalesService\\SalesService.csproj": {}
   },
   "projects": {
-    "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-vendas\\src\\Services\\SalesService\\SalesService.csproj": {
+    "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-venda\\src\\Services\\SalesService\\SalesService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-vendas\\src\\Services\\SalesService\\SalesService.csproj",
+        "projectUniqueName": "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-venda\\src\\Services\\SalesService\\SalesService.csproj",
         "projectName": "SalesService",
-        "projectPath": "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-vendas\\src\\Services\\SalesService\\SalesService.csproj",
+        "projectPath": "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-venda\\src\\Services\\SalesService\\SalesService.csproj",
         "packagesPath": "C:\\Users\\perer\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-vendas\\src\\Services\\SalesService\\obj\\",
+        "outputPath": "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-venda\\src\\Services\\SalesService\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -33,8 +33,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-vendas\\src\\Shared\\Shared.csproj": {
-                "projectPath": "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-vendas\\src\\Shared\\Shared.csproj"
+              "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-venda\\src\\Shared\\Shared.csproj": {
+                "projectPath": "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-venda\\src\\Shared\\Shared.csproj"
               }
             }
           }
@@ -113,14 +113,14 @@
         }
       }
     },
-    "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-vendas\\src\\Shared\\Shared.csproj": {
+    "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-venda\\src\\Shared\\Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-vendas\\src\\Shared\\Shared.csproj",
+        "projectUniqueName": "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-venda\\src\\Shared\\Shared.csproj",
         "projectName": "Shared",
-        "projectPath": "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-vendas\\src\\Shared\\Shared.csproj",
+        "projectPath": "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-venda\\src\\Shared\\Shared.csproj",
         "packagesPath": "C:\\Users\\perer\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-vendas\\src\\Shared\\obj\\",
+        "outputPath": "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-venda\\src\\Shared\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -11,7 +11,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
+// Lê a string de conexão do appsettings.json
+var connectionString = builder.Configuration.GetConnectionString("Mysql");
 builder.Services.AddDbContext<SalesDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
     mysqlOptions => mysqlOptions.EnableRetryOnFailure(
@@ -20,7 +21,7 @@ builder.Services.AddDbContext<SalesDbContext>(options =>
         errorNumbersToAdd: null
     )));
 
-var jwtSecret = Environment.GetEnvironmentVariable("JWT_SECRET") ?? "fallback-secret";
+var jwtSecret = builder.Configuration["Jwt:Key"] ?? "sales-service-jwt";
 var key = Encoding.ASCII.GetBytes(jwtSecret);
 
 builder.Services.AddAuthentication(options =>
@@ -42,10 +43,10 @@ builder.Services.AddAuthentication(options =>
 
 var rabbitConfig = new
 {
-    Host = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "localhost",
-    Username = Environment.GetEnvironmentVariable("RABBITMQ_USER") ?? "guest",
-    Password = Environment.GetEnvironmentVariable("RABBITMQ_PASS") ?? "guest",
-    Queue = Environment.GetEnvironmentVariable("RABBITMQ_QUEUE") ?? "order-created"
+    Host = builder.Configuration["RabbitMQ:Host"] ?? "localhost",
+    Username = builder.Configuration["RabbitMQ:User"] ?? "guest",
+    Password = builder.Configuration["RabbitMQ:Pass"] ?? "guest",
+    Queue = builder.Configuration["RabbitMQ:Queue"] ?? "order-created"
 };
 builder.Services.AddMassTransit(x =>
 {
