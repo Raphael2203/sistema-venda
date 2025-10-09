@@ -1,13 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-
-namespace SalesService.Data;
+using SalesService.Models;
+using Microsoft.Extensions.Configuration;
 
 public class SalesDbContext : DbContext
 {
     public SalesDbContext(DbContextOptions<SalesDbContext> options) : base(options) { }
-
-    public DbSet<Order> Orders { get; set; } = null!;
+    public DbSet<Sale> Sales { get; set; } = null!;
+    public DbSet<Product> Products { get; set; } = null!;
 }
 public class SalesDbContextFactory : IDesignTimeDbContextFactory<SalesDbContext>
 {

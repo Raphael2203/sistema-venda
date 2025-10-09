@@ -1,31 +1,56 @@
 {
-    "Routes": [
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/sales/{everything}",
+      "UpstreamPathTemplate": "/sales/{everything}",
+      "SwaggerKey": "sales",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
         {
-            "DownstreamPathTemplate": "/api/sales/{everything}",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5500
-                }
-            ],
-            "UpstreamPathTemplate": "/sales",
-            "UpstreamHttpMethod": ["GET", "POST" ]
-        },
-        {
-            "DownstreamPathTemplate": "/api/stock/{everything}",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5502
-                }
-            ],
-            "UpstreamPathTemplate": "/stock",
-            "UpstreamHttpMethod": ["GET", "POST" ]
+          "Host": "localhost",
+          "Port": 5500
         }
-    ],
-    "GlobalConfiguration": {
-        "BaseUrl": "http://localhost:8080"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/product/{everything}",
+      "UpstreamPathTemplate": "/stock/{everything}",
+      "SwaggerKey": "stock",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5502
+        }
+      ]
     }
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "sales",
+      "Config": [
+        {
+          "Name": "Sales Service",
+          "Version": "v1",
+          "Url": "http://localhost:5500/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "stock",
+      "Config": [
+        {
+          "Name": "Stock Service",
+          "Version": "v1",
+          "Url": "http://localhost:5502/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ],
+
+
+
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:8080"
+  }
 }

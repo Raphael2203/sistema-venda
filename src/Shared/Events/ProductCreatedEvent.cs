@@ -1,4 +1,6 @@
-public class Product
+namespace Shared.Events;
+
+public class ProductCreatedEvent
 {
     public int ProductId { get; set; }
     public string? Name { get; set; }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4LgEsamNnyI=",
+  "dgSpecHash": "qQPCX2ZpofnA0vk2f3rvb1rGzCNktXsjPni5VzBkNSTVaPMM1V65Mo9/+gEwmGuq48d3FB0ULTH8yQO8925HgA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-venda\\src\\ApiGateway\\ApiGateway.csproj",
+  "projectFilePath": "C:\\Users\\perer\\Documentos\\HISTÓRICO\\Projetos\\csharp\\sistema-venda\\src\\ApiGateway\\ApiGateway.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\perer\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\perer\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

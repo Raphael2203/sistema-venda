@@ -4,9 +4,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using StockService.Data;
+using System.Reflection;
+using BuildingBlocks.Messaging.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddRabbitMqBus(builder.Configuration, Assembly.GetExecutingAssembly());
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -41,34 +44,13 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-var rabbitConfig = new
-{
-    Host = builder.Configuration["RabbitMQ:Host"] ?? "localhost",
-    Username = builder.Configuration["RabbitMQ:User"] ?? "guest",
-    Password = builder.Configuration["RabbitMQ:Pass"] ?? "guest",
-    Queue = builder.Configuration["RabbitMQ:Queue"] ?? "order-created"
-};
-builder.Services.AddMassTransit(x =>
-{
-    x.UsingRabbitMq((context, cfg) =>
-    {
-        cfg.Host(rabbitConfig.Host, "/", h =>
-        {
-            h.Username(rabbitConfig.Username);
-            h.Password(rabbitConfig.Password);
-        });
-        cfg.ReceiveEndpoint(rabbitConfig.Queue!, e =>
-        {
-            e.Consumer<OrderCreatedConsumer>(context);
-        });
-        cfg.ConfigureEndpoints(context);
-    });
-});
-
 var app = builder.Build();
 
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Stock API V1");
+});
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();

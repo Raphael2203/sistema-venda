@@ -10,7 +10,7 @@ using StockService.Data;
 namespace StockService.Migrations
 {
     [DbContext(typeof(StockDbContext))]
-    [Migration("20251001121820_InitialCreate")]
+    [Migration("20251009001642_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -23,7 +23,7 @@ namespace StockService.Migrations
 
             modelBuilder.Entity("Product", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ProductId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -33,7 +33,7 @@ namespace StockService.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("ProductId");
 
                     b.ToTable("Products");
                 });

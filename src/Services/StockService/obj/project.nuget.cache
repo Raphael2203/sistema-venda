@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ff4z0d9XHhI=",
+  "dgSpecHash": "w1eSZxPrDiH91KOqZCQ6pCeqYAPd96FNL9IqJ1ZGz9AHPNnea+H/t4yCS97BOF69+sCJvQFcAcOG/qLdLlVSVQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\perer\\Documents\\HISTÓRICO\\Projetos\\csharp\\sistema-venda\\src\\Services\\StockService\\StockService.csproj",
+  "projectFilePath": "C:\\Users\\perer\\Documentos\\HISTÓRICO\\Projetos\\csharp\\sistema-venda\\src\\Services\\StockService\\StockService.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\perer\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\perer\\.nuget\\packages\\masstransit\\8.5.2\\masstransit.8.5.2.nupkg.sha512",
