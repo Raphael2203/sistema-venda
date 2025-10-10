@@ -12,18 +12,19 @@ builder.Services.AddControllers();
 builder.Services.AddOcelot(builder.Configuration);
 builder.Services.AddSwaggerForOcelot(builder.Configuration);
 
-var jwtSecret = Environment.GetEnvironmentVariable("JWT_SECRET") ?? "fallback-secret";
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer = false,
-            ValidateAudience = false,
+            ValidateIssuer = true,
+            ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(jwtSecret))
+                Encoding.UTF8.GetBytes(jwtSettings["Key"] ?? string.Empty))
         };
     });
 

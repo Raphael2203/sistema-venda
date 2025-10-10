@@ -63,4 +63,22 @@ public class ProductController : ControllerBase
         }).ToList();
         return Ok(products);
     }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetProductById(Guid id)
+    {
+        var product = await _context.Products.FindAsync(id);
+        if (product == null)
+            return NotFound($"Product with ID {id} not found in Stock.");
+
+        return Ok(new ProductDto
+        {
+            Id = product.Id,
+            Name = product.Name ?? string.Empty,
+            Description = product.Description ?? string.Empty,
+            Price = product.Price,
+            StockQuantity = product.StockQuantity,
+            CreatedAt = product.CreatedAt
+        });
+}
 }

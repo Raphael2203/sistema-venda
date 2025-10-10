@@ -46,7 +46,7 @@ public class SalesController : ControllerBase
             if (itemDto.Quantity <= 0)
                 return BadRequest("Quantity must be greater than zero.");
 
-            var response = await httpClient.GetAsync($"/api/products/{itemDto.ProductId}");
+            var response = await httpClient.GetAsync($"/api/product/{itemDto.ProductId}");
             if (!response.IsSuccessStatusCode)
                 return NotFound($"Product with ID {itemDto.ProductId} not found in Stock.");
             
@@ -72,14 +72,9 @@ public class SalesController : ControllerBase
         var saleEvent = new SaleCreatedEvent
         {
             SaleId = sale.Id,
-            CustomerId = sale.CustomerId,
-            Date = sale.Date,
             Items = sale.Items.Select(i => new SaleItemDto
             {
                 ProductId = i.ProductId,
-                ProductName = i.ProductName,
-                ProductDescription = i.ProductDescription,
-                ProductPrice = i.ProductPrice,
                 Quantity = i.Quantity
             }).ToList()
         };

@@ -11,13 +11,12 @@ builder.Services.AddRabbitMqBus(builder.Configuration, Assembly.GetExecutingAsse
 builder.Services.AddControllers();
 builder.Services.AddHttpClient("StockService", client =>
 {
-    client.BaseAddress = new Uri(builder.Configuration["Services:StockService"] ?? "http://localhost:5002");
+    client.BaseAddress = new Uri(builder.Configuration["Services:StockService"] ?? "http://localhost:5502");
 });
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Lê a string de conexão do appsettings.json
 var connectionString = builder.Configuration.GetConnectionString("Mysql");
 builder.Services.AddDbContext<SalesDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
@@ -26,26 +25,6 @@ builder.Services.AddDbContext<SalesDbContext>(options =>
         maxRetryDelay: TimeSpan.FromSeconds(5),
         errorNumbersToAdd: null
     )));
-
-var jwtSecret = builder.Configuration["Jwt:Key"] ?? "sales-service-jwt";
-var key = Encoding.ASCII.GetBytes(jwtSecret);
-
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
-{
-    options.RequireHttpsMetadata = false;
-    options.SaveToken = true;
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(key),
-        ValidateIssuer = false,
-        ValidateAudience = false
-    };
-});
 
 var app = builder.Build();
 

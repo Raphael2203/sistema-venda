@@ -24,26 +24,6 @@ builder.Services.AddDbContext<StockDbContext>(options =>
         errorNumbersToAdd: null
     )));
 
-var jwtSecret = builder.Configuration["Jwt:Key"] ?? "stock-service-jwt";
-var key = Encoding.ASCII.GetBytes(jwtSecret);
-
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
-{
-    options.RequireHttpsMetadata = false;
-    options.SaveToken = true;
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(key),
-        ValidateIssuer = false,
-        ValidateAudience = false
-    };
-});
-
 var app = builder.Build();
 
 app.UseSwagger();
