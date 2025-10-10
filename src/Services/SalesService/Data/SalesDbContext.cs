@@ -7,7 +7,19 @@ public class SalesDbContext : DbContext
 {
     public SalesDbContext(DbContextOptions<SalesDbContext> options) : base(options) { }
     public DbSet<Sale> Sales { get; set; } = null!;
-    public DbSet<Product> Products { get; set; } = null!;
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Sale>()
+            .Property(s => s.Id)
+            .ValueGeneratedOnAdd();
+
+        modelBuilder.Entity<SaleItem>()
+            .Property(si => si.Id)
+            .ValueGeneratedOnAdd();
+
+        base.OnModelCreating(modelBuilder);
+    }
 }
 public class SalesDbContextFactory : IDesignTimeDbContextFactory<SalesDbContext>
 {

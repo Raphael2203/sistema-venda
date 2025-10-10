@@ -12,20 +12,44 @@ public class SaleCreatedConsumer : IConsumer<SaleCreatedEvent>
         _context = context;
     }
     public async Task Consume(ConsumeContext<SaleCreatedEvent> context)
-    
     {
         var sale = context.Message;
-        var product = _context.Products.FirstOrDefault(p => p.ProductId == sale.ProductId);
+        var altered = false;
 
-        if (product == null)
+        foreach (var item in sale.Items)
         {
-            Console.WriteLine($"[Stock Service] Product {sale.ProductId} not found");
-            return;
+            var product = await _context.Products.FindAsync(item.ProductId);
+            if (product == null)
+            {
+                await context.Publish(new StockFailedEvent
+                {
+                    SaleId = sale.SaleId,
+                    ProductId = item.ProductId,
+                    RequestedQuantity = item.Quantity,
+                    AvailableQuantity = 0,
+                    Reason = "Product not found in stock"
+                });
+
+                continue;
+            }
+
+            if (product.StockQuantity < item.Quantity)
+            {
+                await context.Publish(new StockFailedEvent
+                {
+                    SaleId = sale.SaleId,
+                    ProductId = product.Id,
+                    RequestedQuantity = item.Quantity,
+                    AvailableQuantity = product.StockQuantity,
+                    Reason = "Insufficient stock"
+                });
+                continue;
+            }
+            product.StockQuantity -= item.Quantity;
+            altered = true;
         }
-
-        product.Quantity -= sale.Quantity;
-        await _context.SaveChangesAsync();
-
-        Console.WriteLine($"[Stock Service] Product {product.Name} updated. New quantity {product.Quantity}.");
+        
+        if (altered)           
+            await _context.SaveChangesAsync();
     }
 }

@@ -9,6 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRabbitMqBus(builder.Configuration, Assembly.GetExecutingAssembly());
 builder.Services.AddControllers();
+builder.Services.AddHttpClient("StockService", client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["Services:StockService"] ?? "http://localhost:5002");
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

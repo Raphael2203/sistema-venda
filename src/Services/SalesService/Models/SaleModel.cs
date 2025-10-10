@@ -1,11 +1,13 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace SalesService.Models;
 
 public class Sale
 {
-    public int SaleId { get; set; }
-    public int ProductId { get; set; }
-    public int Quantity { get; set; }
+    [Key]
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid CustomerId { get; set; }
     public DateTime Date { get; set; }
 
-    public Product? Product { get; set; }
+    public List<SaleItem> Items { get; set; } = new();
 }

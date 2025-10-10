@@ -8,6 +8,15 @@ public class StockDbContext : DbContext
     public StockDbContext(DbContextOptions<StockDbContext> options) : base(options) { }
 
     public DbSet<Product> Products { get; set; } = null!;
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Product>()
+            .Property(s => s.Id)
+            .ValueGeneratedOnAdd();
+
+        base.OnModelCreating(modelBuilder);
+    }
 }
 public class StockDbContextFactory : IDesignTimeDbContextFactory<StockDbContext>
 {

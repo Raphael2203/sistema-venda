@@ -1,7 +1,11 @@
-﻿namespace Shared.Events;
+﻿using Shared.DTOs;
+
+namespace Shared.Events;
 
 public class SaleCreatedEvent
 {
-    public int ProductId { get; set; }
-    public int Quantity { get; set; }
+    public Guid SaleId { get; set; }
+    public Guid CustomerId { get; set; }
+    public DateTime Date { get; set; }
+    public List<SaleItemDto> Items { get; set; } = new();
 }
