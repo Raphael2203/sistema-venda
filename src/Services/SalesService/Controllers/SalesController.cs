@@ -4,9 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Shared.DTOs;
 using Shared.Events;
 using SalesService.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SalesService.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class SalesController : ControllerBase

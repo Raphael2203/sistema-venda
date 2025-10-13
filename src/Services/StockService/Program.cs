@@ -1,8 +1,4 @@
-using System.Text;
-using MassTransit;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using StockService.Data;
 using System.Reflection;
 using BuildingBlocks.Messaging.Extensions;

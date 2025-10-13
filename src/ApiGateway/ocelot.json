@@ -1,32 +1,35 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/sales/{everything}",
-      "UpstreamPathTemplate": "/sales/{everything}",
-      "SwaggerKey": "sales",
+      "DownstreamPathTemplate": "/api/auth/{everything}",
+      "UpstreamPathTemplate": "/auth/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5500
-        }
+        { "Host": "localhost", "Port": 5504 }
       ],
+      "SwaggerKey": "auth"
+    },
+    {
+      "DownstreamPathTemplate": "/api/sales/{everything}",
+      "UpstreamPathTemplate": "/sales/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 5500 }
+      ],
+      "SwaggerKey": "sales",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       }
     },
     {
-      "DownstreamPathTemplate": "/api/product/{everything}",
+      "DownstreamPathTemplate": "/api/stock/{everything}",
       "UpstreamPathTemplate": "/stock/{everything}",
-      "SwaggerKey": "stock",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5502
-        }
+        { "Host": "localhost", "Port": 5502 }
       ],
+      "SwaggerKey": "stock",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
@@ -34,6 +37,16 @@
     }
   ],
   "SwaggerEndPoints": [
+    {
+      "Key": "auth",
+      "Config": [
+        {
+          "Name": "Auth Service",
+          "Version": "v1",
+          "Url": "http://localhost:5504/swagger/v1/swagger.json"
+        }
+      ]
+    },
     {
       "Key": "sales",
       "Config": [
@@ -55,9 +68,6 @@
       ]
     }
   ],
-
-
-
   "GlobalConfiguration": {
     "BaseUrl": "http://localhost:8080"
   }
