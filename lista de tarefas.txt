@@ -1,8 +1,0 @@
-cria produtor de venda
-criar uma entrada na fila de vendas;
-
-cria consumidor de venda
-pegar o item da fila de vendas ou todos, salvar no banco e criar uma entrada na fila do estoque 
-
-cria consumidor de estoque
-pegar o que esta na fila e debitar no banco
