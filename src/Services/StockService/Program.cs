@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using StockService.Data;
 using System.Reflection;
 using BuildingBlocks.Messaging.Extensions;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,13 +21,40 @@ builder.Services.AddDbContext<StockDbContext>(options =>
         errorNumbersToAdd: null
     )));
 
-var app = builder.Build();
-
-app.UseSwagger();
-app.UseSwaggerUI(c =>
+builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Stock API V1");
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "JWT Authorization header using the Bearer scheme. Example: \"Bearer {token}\"",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
 });
+
+var app = builder.Build();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
