@@ -1,72 +1,31 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/auth/{everything}",
-      "UpstreamPathTemplate": "/auth/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5504 }
-      ],
-      "SwaggerKey": "auth"
-    },
-    {
       "DownstreamPathTemplate": "/api/sales/{everything}",
-      "UpstreamPathTemplate": "/sales/{everything}",
+      "UpstreamPathTemplate": "/api/sales/{everything}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5500 }
-      ],
-      "SwaggerKey": "sales",
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      }
+      "DownstreamHostAndPorts": [{ "Host": "localhost", "Port": 5500 }],
+      "SwaggerKey": "sales"
     },
     {
       "DownstreamPathTemplate": "/api/stock/{everything}",
-      "UpstreamPathTemplate": "/stock/{everything}",
+      "UpstreamPathTemplate": "/api/stock/{everything}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5502 }
-      ],
-      "SwaggerKey": "stock",
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      }
+      "DownstreamHostAndPorts": [{ "Host": "localhost", "Port": 5502 }],
+      "SwaggerKey": "stock"
+    },
+    {
+      "DownstreamPathTemplate": "/api/auth/{everything}",
+      "UpstreamPathTemplate": "/api/auth/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{ "Host": "localhost", "Port": 5504 }],
+      "SwaggerKey": "auth"
     }
   ],
   "SwaggerEndPoints": [
-    {
-      "Key": "auth",
-      "Config": [
-        {
-          "Name": "Auth Service",
-          "Version": "v1",
-          "Url": "http://localhost:5504/swagger/v1/swagger.json"
-        }
-      ]
-    },
-    {
-      "Key": "sales",
-      "Config": [
-        {
-          "Name": "Sales Service",
-          "Version": "v1",
-          "Url": "http://localhost:5500/swagger/v1/swagger.json"
-        }
-      ]
-    },
-    {
-      "Key": "stock",
-      "Config": [
-        {
-          "Name": "Stock Service",
-          "Version": "v1",
-          "Url": "http://localhost:5502/swagger/v1/swagger.json"
-        }
-      ]
-    }
+    { "Key": "sales", "Config": [{ "Name": "Sales Service", "Version": "v1", "Url": "http://localhost:5500/swagger/v1/swagger.json" }] },
+    { "Key": "stock", "Config": [{ "Name": "Stock Service", "Version": "v1", "Url": "http://localhost:5502/swagger/v1/swagger.json" }] },
+    { "Key": "auth", "Config": [{ "Name": "Auth Service", "Version": "v1", "Url": "http://localhost:5504/swagger/v1/swagger.json" }] }
   ],
   "GlobalConfiguration": {
     "BaseUrl": "http://localhost:8080"
